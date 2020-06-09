@@ -1,0 +1,128 @@
+README graph
+
+1 Handin
+
+This is my final handin
+
+2 Design Choices
+
+For this project, many helper methods were created in order to lessen the amount of code needed and keep the logic separate and easy to understand. 
+Below are the major methods and their classes:
+
+AdjacencyMatrixGraph:
+Class that deals with all the vertices and edges. Major data structure is a 2D matrix to store edges. 
+Another important aspect is the use of a stack for vertexNumbers, in case one is removed, the total
+vertexNumbers is always only the size max of the 2D array. Also come methods (insertEdge, removeEdge, 
+connectingEdge, numOutgoingEdges, areAdjacent, toggleDirected) have different actions taken if dealing
+with a directed or undirected graph. 
+
+Methods include: 
+vertices() - returns iterator of all vertices stored in a HashSet
+edges() - returns iterator of all edges stored in a HashSet
+insertVertex(vertex) - insert a new Vertex given a vertElement, gives it a vertexNumber and returns the vertex added. 
+insertEdge(vertex, vertex, edge) - insert a new Edge given a edgeElement, adds edge in 2D array depending on if directed or not, takes in 
+two vertices and edge to connect
+removeVertex(vertex) - removes Vertex from graph and vertices HashSet, takes in the vertex and returns the vertex value, also removes related edges 
+removeEdge(edge) - removes edge from graph and edge hashset, depends on directed/not, gets vertexOne and vertexTwo to remove from adjMatrix, 
+takes in edge, returns edge element
+connectingEdge (vertex, vertex) - returns connecting edge of two vertices
+incomingEdges(vert) - returns list of incomingEdges of vertex
+outgoingEdges(vert) - returns list of outgoingEdges of vertex
+numOutgoingEdges(vert) - returns number of outgoingEdges of vertex, only if directed
+opposite(vert, edge) - returns opposite vertex of vertex and edge by returning the edge's other vertex
+endVertices(edge) - returns two (list) of vertices of an edge
+areAdjacent(vert, vert) - returns if two vertices are adjacent, depending on directed/not
+toggleDirected() - changes if directed or not (directed variable)
+clear() - clears all vertices from graph
+getNumVertices() - return num of vertices
+
+
+MyDecorator:
+This class handles how and what a decorator is and how it can be applied to vertices for certain information. 
+This is used in the PrimJarnik Class. The only instance variable is a HashMap<K,V> to represent the decorators 
+key and value that it stores.
+
+Methods Include: 
+constructor() - instantiates a new HashMap
+getDecoration() - takes in a key and returns the value of the decorator
+setDecoration() - takes in a key and value and puts that decorator in the hashMap
+hasDecoration() - takes in a key and returns a boolean to see if the key is contained in the hashMap
+removeDecoration() - takes in a key and returns the removed key’s value through the remove method of a HashMap
+getKeys() - returns the set of all keys in HashMap
+
+MyPrimJarnik:
+MyPrimJarnik - This class has only one method, getMinSpanForest, which calculates the MST for any graph 
+using the Prim-Jarnik algorithm. The class calls on methods in MyDecorator and AdjMatrix and uses the 
+HeapPriorityQueue structure. It takes in a graph g  and the visualizer and returns an MST. The method 
+runs in O((|E| + |V|)log(|V|)) time.
+
+MyPageRank: 
+This class handles the PageRank calculations for a graph. The class includes a list of private variables and 
+data structures including an ArrayList for vertices, HashMap for vertices and Ranks to return, arrays for 
+current PageRank, previous PageRank, outgoing edges, and an ArrayList for sinks.
+
+Methods Include: 
+handleSinks() - helper method that handles all the sinks for the vertices. Does not return or take in 
+anything but uses the sinks array to add edges to sink and deal with them. Adding edges will deal with sinks. 
+checkConvergence() - returns a boolean to update if the pagerank’s main while loop as finished iterating 
+through all the vertices to calculate the final pageRank. 
+dampingCalculation() - does the main 1-DF/V calculations for the main PageRank calculation.
+
+No new classes were made for this project. 
+
+3 Known Bugs
+There are no known bugs in this project from the tests that were made.
+
+4 Explanation of Test Cases
+
+GraphTest:
+testInsertVertex - simple test for insertVertex, that adds 3 vertices and then checks to make sure they were added by accessing them through the vertices iterator.clearTest - Tests the clear() method on an undirected graph
+testInsertVertexDirected - tests InsertVertex but on a directed Graph
+testInsertEdges - simple test for insertEdges that adds 3 vertices on undirected graph 
+testInsertEdgesDirected - tests insertEdges and vertices on a directed graph
+removeDirected - test removeVertex and removeEdge  on directed graph
+removeTest - test removeVertex and removeEdge on an undirected graph
+oppositeAndConnectingTest - test opposite and connectingEdge on undirected graph
+oppositeAndConnectingDirectedTest - test opposite and connectingEdge on directed graph
+outgoingIncomingDirected - test incoming/outgoingEdges from directed graph
+outgoingIncomingUndirected - test incoming/outgoingEdges from an undirected graph
+outgoingIncomingRemoveUndirected - test incoming/outgoingEdges after removing from undirected graph
+outgoingIncomingRemoveDirected - test incoming/outgoingEdges after removing from undirected graph
+testEndVertices - Tests the endVertices method
+testAreAdjacent - testing the areAdjacent method
+testInsertEdgeThrowsInvalidVertexException - Testing the error thrown by insertEdge when null
+testRemoveVertexThrowInvalidVertexException - Testing the error thrown by removeVertex when null
+testRemoveEdgeThrowInvalidEdgeException - Testing the error thrown by removeEdge when null
+testConnectingEdgeThrowsInvalidVertexException - Error thrown by connectingEdge method
+testConnectingEdgeThrowsNoSuchEdgeException - Error thrown by connectingEdge method
+testIncomingOutgoingEdgesThrowsInvalidVertexException - Error thrown by incomingEdges, outgoingEdges, and numOutgoingEdges method
+testNumOutgoingEdgesThrowsDirectionException - Error through by numOutgoingEdges
+testOppositeThrowsInvalidVertexException - Error thrown by opposite method
+testOppositeThrowsInvalidEdgeException - Error thrown by opposite method
+testOppositeThrowsNoSuchVertexException - Error thrown by opposite method
+testendVerticesThrowsInvalidEdgeException - Error thrown by endVertices method
+testareAdjacentThrowsInvalidVertexException - Error thrown by areAdjacent method
+
+MsfTest:
+simpleTest - simple test with 3 vertices and one MST
+multipleMSTTest - test with multiple MSTs present and 6 vertices
+acylicalTest - test acyclical graph with 3 nodes and one MST
+disconnectedVertexTest - test graph with one disconnected vertex and multiple MSTs
+twoDisconnectedGraphsTest - test graph with two separate MSTs with different vertices
+
+MyPageRankTest:
+testFourEqualRanks - test with 4 pages, square shape when visualized
+simpleTestOne - test with 3 pages and one sink page
+simpleTestTwo - test with 5 pages and no sinks
+simpleTestThreeSink - test with 5 pages and one sink
+simpleTestFour - test with 4 pages and two pages connected both ways, cyclical
+
+9 Conceptual Question 
+
+One way to deal with making a certain page’s rank be lower than other is to remove all its 
+incoming edges. By removing its incoming edges, it won’t be able to receive the ranks of other 
+pages but it still will not be 0. The fraction received from the incoming edges would leave to 
+a low rank, leading to what is wanted. This again would not affect the total of 1 for all 
+PageRanks, but it would affect how the PageRank looks as a vertex. 
+
+This has been implemented in a removeBlackList() method in MyPageRank. 
