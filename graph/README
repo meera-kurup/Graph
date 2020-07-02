@@ -1,10 +1,6 @@
 README graph
 
-1 Handin
-
-This is my final handin
-
-2 Design Choices
+Design Choices
 
 For this project, many helper methods were created in order to lessen the amount of code needed and keep the logic separate and easy to understand. 
 Below are the major methods and their classes:
@@ -68,12 +64,7 @@ checkConvergence() - returns a boolean to update if the pagerank’s main while 
 through all the vertices to calculate the final pageRank. 
 dampingCalculation() - does the main 1-DF/V calculations for the main PageRank calculation.
 
-No new classes were made for this project. 
-
-3 Known Bugs
-There are no known bugs in this project from the tests that were made.
-
-4 Explanation of Test Cases
+Explanation of Test Cases
 
 GraphTest:
 testInsertVertex - simple test for insertVertex, that adds 3 vertices and then checks to make sure they were added by accessing them through the vertices iterator.clearTest - Tests the clear() method on an undirected graph
